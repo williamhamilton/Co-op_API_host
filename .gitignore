@@ -1,0 +1,75 @@
+# ---- OS / Filesystem ----
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# ---- Editor / IDE ----
+.idea/
+.vscode/
+*.iml
+
+# ---- Python bytecode / caches ----
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.hypothesis/
+.tox/
+.nox/
+
+# ---- Virtual environments ----
+.venv/
+venv/
+env/
+ENV/
+
+# ---- Build / packaging artifacts ----
+build/
+dist/
+site/
+.eggs/
+*.egg-info/
+*.egg
+pip-wheel-metadata/
+
+# ---- Test / coverage outputs ----
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+*.cover
+
+# ---- Logs / runtime files ----
+*.log
+*.pid
+*.out
+*.err
+
+# ---- Environment / secrets ----
+.env
+.env.*
+*.local
+
+# ---- Jupyter ----
+.ipynb_checkpoints/
+
+# ---- Type checker / static analysis ----
+.dmypy.json
+dmypy.json
+.pytype/
+
+# ---- Local app/runtime data (uncomment if needed) ----
+# data/
+# tmp/
+# logs/
+
+# NOTE:
+# Keep uv.lock tracked for application reproducibility.
+
