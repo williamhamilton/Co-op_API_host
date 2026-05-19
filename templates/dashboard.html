@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Live API Traffic Monitor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans min-h-screen p-8">
+    <div class="max-w-5xl mx-auto">
+        <header class="flex justify-between items-center border-b border-slate-700 pb-4 mb-6">
+            <div>
+                <h1 class="text-3xl font-bold text-emerald-400">Classroom Live API Monitor</h1>
+                <div class="flex items-center gap-3 mt-1">
+                    <p class="text-slate-400 text-sm">Real-time student request log</p>
+                    <span id="auth-badge" class="px-2 py-0.5 rounded text-[10px] font-bold uppercase border"></span>
+                </div>
+            </div>
+            <div class="flex gap-3">
+                <button onclick="toggleSecurity()" class="bg-amber-600 hover:bg-amber-500 text-white py-2 px-4 rounded text-sm font-bold transition">
+                    🔄 Toggle Security
+                </button>
+                <a href="/docs" target="_blank" class="bg-slate-700 hover:bg-slate-600 text-white py-2 px-4 rounded text-sm transition">Swagger Docs</a>
+            </div>
+        </header>
+
+        <main class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-slate-800 p-6 rounded-lg border border-slate-700 shadow-xl h-fit">
+                <h2 class="text-xl font-semibold text-slate-200 mb-4">📦 Database State</h2>
+                <div id="db-state" class="space-y-3"></div>
+            </div>
+
+            <div class="md:col-span-2 bg-slate-800 p-6 rounded-lg border border-slate-700 shadow-xl">
+                <h2 class="text-xl font-semibold text-slate-200 mb-4">⚡ HTTP Stream</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead>
+                            <tr class="border-b border-slate-700 text-slate-400">
+                                <th class="pb-3">Time</th>
+                                <th class="pb-3">IP</th>
+                                <th class="pb-3">Method</th>
+                                <th class="pb-3">Status</th>
+                                <th class="pb-3">Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id="log-table-body" class="divide-y divide-slate-700/50"></tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        async function toggleSecurity() {
+            try {
+                await fetch('/admin/toggle-auth', { method: 'POST' });
+            } catch (err) {
+                alert("Error toggling security.");
+            }
+        }
+
+        async function fetchUpdates() {
+            try {
+                const res = await fetch('/v1/internal/state');
+                const data = await res.json();
+
+                // Update Auth Badge
+                const badge = document.getElementById('auth-badge');
+                badge.innerText = data.auth_status ? "Security: LOCKED (401)" : "Security: OPEN (200)";
+                badge.className = data.auth_status
+                    ? "px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-rose-900/50 text-rose-300 border-rose-700"
+                    : "px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-900/50 text-emerald-300 border-emerald-700";
+
+                // Render DB
+                document.getElementById("db-state").innerHTML = data.db.map(task => `
+                    <div class="p-3 rounded bg-slate-700/40 border border-slate-600/50">
+                        <div class="flex justify-between text-[10px] font-bold mb-1">
+                            <span class="text-slate-400">ID: ${task.id}</span>
+                            <span class="${task.completed ? 'text-emerald-400' : 'text-amber-400'}">${task.completed ? 'DONE' : 'PENDING'}</span>
+                        </div>
+                        <p class="text-sm font-medium text-slate-100">${task.title}</p>
+                    </div>
+                `).join('');
+
+                // Render Logs
+                document.getElementById("log-table-body").innerHTML = data.logs.map(log => {
+                    const statusColor = log.status >= 400 ? 'text-rose-400' : 'text-emerald-400';
+                    return `
+                        <tr class="hover:bg-slate-700/20 transition">
+                            <td class="py-3 text-slate-500">${log.time}</td>
+                            <td class="py-3 font-mono text-slate-300">${log.ip}</td>
+                            <td class="py-3 font-bold text-blue-400">${log.action}</td>
+                            <td class="py-3 font-bold ${statusColor}">${log.status}</td>
+                            <td class="py-3 text-slate-400">${log.details}</td>
+                        </tr>
+                    `;
+                }).join('');
+            } catch (err) { console.error(err); }
+        }
+
+        setInterval(fetchUpdates, 1000);
+        fetchUpdates();
+    </script>
+</body>
+</html>
