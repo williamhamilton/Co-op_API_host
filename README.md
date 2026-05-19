@@ -56,7 +56,7 @@ This repo is designed for **Module 1: Consuming APIs**.
 
 ## 📜 Credits & Acknowledgments
 
-* **Author**: Google Gemini and a bit from me, William, but really most credit to our benevolent AI overloards
+* **Author**: Google Gemini and a bit from me, William, but really most credit to our benevolent AI overlords
 * **Tools**: Built with [FastAPI](https://fastapi.tiangolo.com/) and [Tailwind CSS](https://tailwindcss.com/).
 * **AI Collaboration**: Developed with the assistance of **Gemini** (Google AI) to optimise the real-time dashboard and educational flow.
 
