@@ -5,7 +5,7 @@ A lightweight **FastAPI** application designed for teaching the fundamentals of 
 
 ## 🚀 Features
 
-* **Live Traffic Monitor**: Real-time visualization of HTTP requests (Method, IP, Status, Details).
+* **Live Traffic Monitor**: Real-time visualisation of HTTP requests (Method, IP, Status, Details).
 * **In-Memory Database**: A simple "Books" database that updates instantly on the UI.
 * **Security Toggle**: Instructor-controlled authentication (Bearer Token) to demonstrate `401 Unauthorized` vs `200 OK`.
 * **Error Simulation**: Built-in logic to trigger `422` (Validation Error), `429` (Rate Limiting), and `404` (Not Found).
@@ -58,7 +58,7 @@ This repo is designed for **Module 1: Consuming APIs**.
 
 * **Author**: Google Gemini and a bit from me, William, but really most credit to our benevolent AI overloards
 * **Tools**: Built with [FastAPI](https://fastapi.tiangolo.com/) and [Tailwind CSS](https://tailwindcss.com/).
-* **AI Collaboration**: Developed with the assistance of **Gemini** (Google AI) to optimize the real-time dashboard and educational flow.
+* **AI Collaboration**: Developed with the assistance of **Gemini** (Google AI) to optimise the real-time dashboard and educational flow.
 
 ## ⚖️ License
 
