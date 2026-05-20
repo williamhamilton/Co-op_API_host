@@ -65,9 +65,3 @@ This repo is designed for **Module 1: Consuming APIs**.
 This project is licensed under the MIT License - feel free to use and adapt it for your own classrooms!
 
 ---
-
-### Why this is important for your Repo:
-
-* **The "Why"**: It explains to other teachers exactly what the "magic trick" of this app is (the live sync).
-* **The "How"**: It ensures anyone who forks the repo knows they need to install `jinja2` (which is required for the dashboard).
-* **The "Credit"**: It frames the AI assistance as a modern development workflow, which is a great talking point for a class on technology!
